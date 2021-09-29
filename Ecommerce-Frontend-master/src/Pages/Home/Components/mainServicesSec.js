@@ -4,6 +4,8 @@ import { FaArrowRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Loading from '../../../Components/Loading'
 import DataError from '../../../Components/DataError'
+import { listServices } from '../../../Redux/Actions/serviceActions'
+import { useDispatch, useSelector } from 'react-redux'
 // import { bootstrap } from 'bootstrap'
 // import { CardData } from '../../../Local Data/mainServicesData'
 
@@ -59,24 +61,29 @@ const ServiceCard = ({ link, title, imgLink, details, options }) => {
 }
 
 const UseServicesCard = () => {
-    const [services, setservices] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(false)
+    // const [services, setservices] = useState([])
+    // const [loading, setLoading] = useState(false)
+    // const [error, setError] = useState(false)
+
+    const dispatch = useDispatch()
+    const serviceList = useSelector((state) => state.serviceList);
+    const { loading, error, services } = serviceList
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true)
-            try {
-                const { data } = await axios.get('/api/services')
-                setservices(data)
-                setLoading(false)
-                console.log(data)
-            } catch (error) {
-                setError(error.message)
-                setLoading(false)
-            }
-        }
-        fetchData()
-    }, [])
+        // const fetchData = async () => {
+        //     setLoading(true)
+        //     try {
+        //         const { data } = await axios.get('/api/services')
+        //         setservices(data)
+        //         setLoading(false)
+        //         console.log(data)
+        //     } catch (error) {
+        //         setError(error.message)
+        //         setLoading(false)
+        //     }
+        // }
+        // fetchData()
+        dispatch(listServices())
+    }, [dispatch]);
     return (
         <>
             {loading ? <Loading />
