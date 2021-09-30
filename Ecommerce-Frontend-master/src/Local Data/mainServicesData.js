@@ -77,21 +77,21 @@ export const CardData = [
         ]
     },
     {
-        id: 1,
+        id: 2,
         title: "Plumbing",
         imgLink: "https://source.unsplash.com/random",
         details: ["Repairing", "Servicing", "Installation"],
         options: ["Refrigerator", "Fan", "Geyser", "Television"]
     },
     {
-        id: 1,
+        id: 3,
         title: "Home Cleaning",
         imgLink: "https://source.unsplash.com/random",
         details: ["Repairing", "Servicing", "Installation"],
         options: ["Refrigerator", "Fan", "Geyser", "Television"]
     },
     {
-        id: 1,
+        id: 4,
         title: "Security",
         imgLink: "./vault.jpg",
         details: ["Repairing", "Servicing", "Installation"],
