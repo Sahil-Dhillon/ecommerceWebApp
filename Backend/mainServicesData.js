@@ -14,15 +14,18 @@ export const data = {
                         services: [
                             {
                                 name: "Installation",
-                                price: 500
+                                price: 500,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                             {
                                 name: "Uninstallation",
-                                price: 300
+                                price: 300,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                             {
                                 name: "Repairing",
-                                price: 200
+                                price: 200,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                         ]
                     },
@@ -31,15 +34,18 @@ export const data = {
                         services: [
                             {
                                 name: "Installation",
-                                price: 500
+                                price: 500,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                             {
                                 name: "Uninstallation",
-                                price: 300
+                                price: 300,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                             {
                                 name: "Repairing",
-                                price: 200
+                                price: 200,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                         ]
                     },
@@ -48,15 +54,18 @@ export const data = {
                         services: [
                             {
                                 name: "Installation",
-                                price: 500
+                                price: 500,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                             {
                                 name: "Uninstallation",
-                                price: 300
+                                price: 300,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                             {
                                 name: "Repairing",
-                                price: 200
+                                price: 200,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                         ]
                     },
@@ -65,15 +74,18 @@ export const data = {
                         services: [
                             {
                                 name: "Installation",
-                                price: 500
+                                price: 500,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                             {
                                 name: "Uninstallation",
-                                price: 300
+                                price: 300,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                             {
                                 name: "Repairing",
-                                price: 200
+                                price: 200,
+                                details: "It is a short description about the work. It is a short description about the work. It is a short description about the work."
                             },
                         ]
                     }
