@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const DataError = (props) => {
     return (<div>
@@ -10,5 +11,16 @@ const DataError = (props) => {
     </div>
     )
 }
+export const NoItemInCart = () => {
 
+    return (
+        <div className="card">
+            <div className="card-body">
+                <h3>Your cart is empty.
+                </h3>
+                <Link to="/#service-section">Go to Services</Link>
+            </div>
+        </div>
+    )
+}
 export default DataError

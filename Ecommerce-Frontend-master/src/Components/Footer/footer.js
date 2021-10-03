@@ -43,7 +43,7 @@ const Footer = () => {
             <div class="d-flex justify-content-between align-items-center py-4 my-4 border-top">
                 <div className="d-flex align-items-center">
                     <img className="d-inline-block mx-2" width="40" height="40" src="./logo192.png" alt="logo" />
-                    <p className="m-0">&copy; 2021 Vault Securities, Inc. All rights reserved.</p>
+                    <p className="m-0">&copy; 2021 E-Commerce, Inc. All rights reserved.</p>
                 </div>
                 <ul class="list-unstyled d-flex">
                     <li class="ms-3 fs-3"><a class="link-dark p-0" href="#"><FaInstagram /></a></li>

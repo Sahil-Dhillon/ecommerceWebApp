@@ -7,7 +7,7 @@ const hero = () => {
             <div className="section-1-overlay">
 
                 <div className="section-1-container">
-                    <h1>Ready to Help!</h1>
+                    <h1>We serve at your doorstep.</h1>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia.</p>
                     <div className="section-1-explore-btn">
                         <a href="#howItWorks">

@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import { FaArrowRight } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Loading from '../../../Components/Loading'
 import DataError from '../../../Components/DataError'
 import { listServices } from '../../../Redux/Actions/serviceActions'
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { CardData } from '../../../Local Data/mainServicesData'
 
 const ServiceCard = ({ link, title, imgLink, details, options }) => {
+    const history = useHistory()
     return (
         <div class="card m-2">
             <h5 class="card-header m-2 bg-transparent">{title}</h5>
@@ -27,8 +28,8 @@ const ServiceCard = ({ link, title, imgLink, details, options }) => {
                 <button type="button" class="btn btn-primary py-1 " data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Next
                 </button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
                         <div class="modal-content rounded-6 shadow">
                             <div class="modal-body p-5">
                                 <h2 class="fw-bold mb-0">{title}</h2>
@@ -39,7 +40,9 @@ const ServiceCard = ({ link, title, imgLink, details, options }) => {
                                             const { item } = data
                                             return (
                                                 <li key={index} class="gap-4 border-bottom p-2 " >
-                                                    <Link onClick={() => window.location.href = `/Services/${title}/${item}`} className="d-flex justify-content-between align-items-center">
+                                                    <Link
+                                                        onClick={() => history.push(`/Services/${title}/${item}`)}
+                                                        className="d-flex justify-content-between align-items-center" data-bs-dismiss="modal">
                                                         <div>
                                                             <h5 class="mb-0">{item}</h5>
                                                         </div>
