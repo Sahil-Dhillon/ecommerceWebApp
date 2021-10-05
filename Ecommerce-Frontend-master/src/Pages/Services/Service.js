@@ -1,4 +1,3 @@
-import Modal from 'bootstrap/js/src/modal'
 import React, { useEffect, useState } from 'react'
 import { FaAngleDown, FaArrowLeft, FaUserClock } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
@@ -103,7 +102,7 @@ const UseChooseServiceCard = () => {
                                                     ₹{price}
                                                 </div>
                                                 <div className="d-flex align-items-center">
-                                                    {availability === "yes" ?
+                                                    {availability === true ?
                                                         // <input class=" services-input-checkbox mx-2" id={`input${name}`} type="checkbox" value="" data-bs-target={`#select${name}InfoModal`} data-bs-toggle="modal" /> :
                                                         <button className="btn services-input-checkbox" data-bs-target={`#select${name}InfoModal`} data-bs-toggle="modal"></button> :
                                                         <p className="text-danger fs-6 m-2">Service not available currently</p>

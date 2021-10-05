@@ -37,7 +37,7 @@ const ServiceCard = ({ link, title, imgLink, details, options }) => {
                                 <ul class="d-grid  my-5 list-unstyled">
                                     {
                                         options.map((data, index) => {
-                                            const { item } = data
+                                            const { item, _id } = data
                                             return (
                                                 <li key={index} class="gap-4 border-bottom p-2 " >
                                                     <Link

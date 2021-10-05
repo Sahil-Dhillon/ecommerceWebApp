@@ -110,10 +110,6 @@ a {
     color: #aaa;
 } */
 
-.nav-links-ul li a:hover {
-    /* color: var(--white75); */
-}
-
 .login-btn {
     border: 1.5px solid var(--transparent);
     border-radius: 50px;
