@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { signout } from '../../Redux/Actions/userActions';
+import { removeAllFromCart } from '../../Redux/Actions/cartActions';
 // import { FaBars, FaWhatsapp, FaFacebook } from 'react-icons/fa';
 // import { links, social } from '../data';
 
@@ -16,20 +18,29 @@ const useYScrollOffset = () => {
 const Navbar = () => {
     const cart = useSelector((state) => state.cart)
     const { cartItems } = cart
+    const userSignin = useSelector((state) => state.userSignin)
+    const { userInfo } = userSignin
+    const dispatch = useDispatch()
+    const signoutHandler = () => {
+        dispatch(signout())
+
+    }
+
     var navScrollBgClass = "nan"
     var navScrollLinkClass = "nav-links"
     if (useYScrollOffset() < 20) {
         navScrollBgClass = 'navbar  fixed-top navbar-expand-lg bg-transparent navbar-dark '
     }
     else {
-        navScrollBgClass = 'navbar  fixed-top navbar-expand-lg bg-white navbar-light'
-        navScrollLinkClass = 'text-black nav-links-scrolled'
     }
+    navScrollBgClass = 'navbar  sticky-top navbar-expand-lg bg-white navbar-light '
+    // navScrollLinkClass = 'text-black nav-links-scrolled'
+
 
     return (
         <>
 
-            <nav className={navScrollBgClass} >
+            <nav className={navScrollBgClass} id="main-header">
                 <div class="container-md">
                     <div className="navbar-brand text-line fw-light" onClick={() => window.location.href = '/'}>
                         <img className="nav-logo-img d-inline-block align-text-center mx-2" width="40" height="40" src="./logo192.png" alt="logo" />
@@ -45,19 +56,19 @@ const Navbar = () => {
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 nav-links-ul">
-                                <li>
-                                    {cartItems.length > 0 && (
-                                        <Link to="/Cart" className={navScrollLinkClass, "position-relative"}>
+                                {cartItems.length > 0 && (
+                                    <li class="nav-item">
+                                        <Link to="/Cart" className={"position-relative nav-link"}>
                                             <AiOutlineShoppingCart class="" style={{
                                                 fontSize: "1.4rem",
                                             }} />
-                                            <span class="position-absolute top-0 end-1 translate-middle badge rounded-pill bg-danger">
+                                            <span class="position-absolute top-5 end-1 translate-middle badge rounded-pill bg-danger">
                                                 {cartItems.length}
                                             </span>
                                         </Link>
-                                    )}
-                                </li>
-                                <li>
+                                    </li>
+                                )}
+                                {/* <li>
                                     <a href="#section-2" className={navScrollLinkClass}>
                                         About Us
                                     </a>
@@ -66,29 +77,38 @@ const Navbar = () => {
                                     <a href="/" className={navScrollLinkClass}>
                                         Contact
                                     </a>
-                                </li>
-                                <a href="/" >
-                                    <li className="login-btn">Login | Sign Up</li>
-                                </a>
-                                {/* <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li> */}
+                                <li class="nav-item">
+                                    <a class="nav-link text-black" aria-current="page" href="#">About</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Link</a>
-                                </li> */}
-                                {/* <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider" />
+                                    <a class="nav-link text-black" href="#">Contact Us</a>
+                                </li>
+                                {
+                                    userInfo ? (
+                                        <li class="nav-item dropdown">
+                                            <span class="nav-link dropdown-toggle" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {userInfo.name}
+                                            </span>
+                                            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+                                                <li><a class="dropdown-item" href="/">Profile</a></li>
+                                                <li><a class="dropdown-item" href="/">Another action</a></li>
+                                                <li>
+                                                    <hr class="dropdown-divider" />
+                                                </li>
+                                                <li><Link to="/" class="dropdown-item" onClick={signoutHandler}>Sign Out</Link></li>
+                                            </ul>
                                         </li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </li> */}
+                                    ) : (
+                                        <li className="nav-item">
+
+                                            <Link to="/signin" className={"nav-link btn-primary rounded-pill text-white p-2"}>Login | Sign Up</Link>
+                                        </li>
+                                    )
+                                }
+
+
+
                             </ul>
                         </div>
                     </div>

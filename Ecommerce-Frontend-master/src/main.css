@@ -71,6 +71,7 @@ a {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 2;
     min-height: 100vh;
     min-width: 100vw;
     background: #fff;
@@ -117,9 +118,9 @@ a {
 }
 
 .login-btn:hover {
-    background-color: var(--white25);
-    border: 1.5px solid var(--white50);
-    color: white;
+    background-color: #ccc;
+    border: 1.5px solid #aaa;
+    color: black;
 }
 
 @media (max-width: 992px) {

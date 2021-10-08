@@ -12,10 +12,9 @@ function handleCloseModal(e) {
 
 }
 
-
-
-
 const UseChooseServiceCard = () => {
+    const userSignin = useSelector((state) => state.userSignin);
+    const { userInfo } = userSignin;
     const { group, subgroup } = useParams()
     const [errorMessage, setErrorMessage] = useState(null)
     const [startTime, setStartTime] = useState("09:00")
@@ -70,14 +69,13 @@ const UseChooseServiceCard = () => {
     }, [dispatch, services_group_subgroup]);
     const HandleAddToCart = (name) => {
         // const { name, group, subgroup, timeFormatted, addComment } = props
-        history.push(`/Cart`)
-        // const modalEl = document.querySelectorAll(".modal-backdrop")
-        // while (modalEl.length > 0) {
-        //     modalEl[0].classList.remove('modal-backdrop');
-        // }
-        // const { group, subgroup, service, timeSlot, comment } = useParams()
-        if (group, subgroup, name, timeFormatted) {
-            dispatch(addToCart(group, subgroup, name, timeFormatted, addComment))
+        if (!userInfo) {
+            history.push(`/signin?redirect=Services/${services_group_subgroup}`)
+        } else {
+            history.push(`/Cart`)
+            if (group, subgroup, name, timeFormatted) {
+                dispatch(addToCart(group, subgroup, name, timeFormatted, addComment))
+            }
         }
         // document.getElementById(`input${name}`).disabled = true
         // useEffect(() => {

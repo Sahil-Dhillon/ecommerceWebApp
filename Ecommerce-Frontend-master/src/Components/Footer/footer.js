@@ -5,7 +5,7 @@ const Footer = () => {
 
     return (
 
-        <footer class=" bottom-0 start-0 py-2 py-md-5 container-fluid" style={{ backgroundColor: "#fff" }}>
+        <footer id="main-footer" class=" bottom-0 start-0 py-2 py-md-5 container-fluid" style={{ backgroundColor: "#fff" }}>
             <div class="row">
                 <div class="col-12 col-md-4 py-2 py-md-0">
                     <h5>Currently serving in</h5>

@@ -11,6 +11,17 @@ const DataError = (props) => {
     </div>
     )
 }
+export const AuthError = (props) => {
+    return (
+
+        <div>
+
+            <div class="alert alert-danger" role="alert">
+                {props.children}. Try again
+            </div>
+        </div>
+    )
+}
 export const NoItemInCart = () => {
 
     return (
@@ -21,6 +32,14 @@ export const NoItemInCart = () => {
                 <Link to="/#service-section">Go to Services</Link>
             </div>
         </div>
+    )
+}
+export const FormValidateError = (props) => {
+
+    return (
+        <span className="text-danger" style={{ fontSize: "0.8em" }}>
+            {props.children}
+        </span>
     )
 }
 export default DataError
