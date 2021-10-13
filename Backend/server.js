@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import ServiceRouter from './routers/servicesRouter.js';
 import userRouter from './routers/userRouter.js';
+import orderRouter from './routers/orderRouter.js';
 
 dotenv.config()
 
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 // app.use(express.static('assets/images'))
 app.use('/api/users', userRouter)
 app.use('/api/services', ServiceRouter)
+app.use('/api/orders', orderRouter);
 // app.get('/api/services', (req, res) => {
 //     res.send(data.services)
 // })

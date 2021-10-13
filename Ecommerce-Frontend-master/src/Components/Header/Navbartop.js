@@ -17,7 +17,7 @@ const useYScrollOffset = () => {
 }
 const Navbar = () => {
     const cart = useSelector((state) => state.cart)
-    const { cartItems } = cart
+    // const { cartItems } = cart
     const userSignin = useSelector((state) => state.userSignin)
     const { userInfo } = userSignin
     const dispatch = useDispatch()
@@ -56,7 +56,7 @@ const Navbar = () => {
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 nav-links-ul">
-                                {cartItems.length > 0 && (
+                                {/* {cartItems.length > 0 && (
                                     <li class="nav-item">
                                         <Link to="/Cart" className={"position-relative nav-link"}>
                                             <AiOutlineShoppingCart class="" style={{
@@ -67,7 +67,7 @@ const Navbar = () => {
                                             </span>
                                         </Link>
                                     </li>
-                                )}
+                                )} */}
                                 {/* <li>
                                     <a href="#section-2" className={navScrollLinkClass}>
                                         About Us

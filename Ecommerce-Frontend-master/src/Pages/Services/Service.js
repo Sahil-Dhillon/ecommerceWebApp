@@ -57,34 +57,37 @@ const UseChooseServiceCard = () => {
         }
         formatTime(hours + ':' + minutes + ' ' + meridian);
     }
-
-    const services_group_subgroup = `${group}/${subgroup}`
     const dispatch = useDispatch();
-    const serviceDetails = useSelector((state) => state.serviceDetails);
-    const { loading, error, service } = serviceDetails;
     const history = useHistory()
 
+    const services_group_subgroup = `${group}/${subgroup}`
     useEffect(() => {
         dispatch(detailsServices(services_group_subgroup));
     }, [dispatch, services_group_subgroup]);
-    const HandleAddToCart = (name) => {
-        // const { name, group, subgroup, timeFormatted, addComment } = props
+    const serviceDetails = useSelector((state) => state.serviceDetails);
+    const loadingService = serviceDetails.loading
+    const { error, service } = serviceDetails;
+
+    const HandleAddToCart = async (name) => {
+
         if (!userInfo) {
             history.push(`/signin?redirect=Services/${services_group_subgroup}`)
         } else {
-            history.push(`/Cart`)
             if (group, subgroup, name, timeFormatted) {
                 dispatch(addToCart(group, subgroup, name, timeFormatted, addComment))
             }
+            history.push(`/Cart`)
         }
-        // document.getElementById(`input${name}`).disabled = true
-        // useEffect(() => {
-        // }, [dispatch, group, subgroup, name, timeFormatted, addComment])
+    }
+    const checkSignInHandler = () => {
+        if (!userInfo) {
+            history.push(`/signin?redirect=Services/${services_group_subgroup}`)
+        }
     }
 
     return (
         <>
-            {loading ? <Loading />
+            {loadingService ? <Loading />
                 : error ? <DataError>{error}</DataError>
                     : (<div className="col-12 col-md-6">
                         <h2>Choose type of service</h2>
@@ -102,7 +105,7 @@ const UseChooseServiceCard = () => {
                                                 <div className="d-flex align-items-center">
                                                     {availability === true ?
                                                         // <input class=" services-input-checkbox mx-2" id={`input${name}`} type="checkbox" value="" data-bs-target={`#select${name}InfoModal`} data-bs-toggle="modal" /> :
-                                                        <button className="btn services-input-checkbox" data-bs-target={`#select${name}InfoModal`} data-bs-toggle="modal"></button> :
+                                                        <button className="btn services-input-checkbox" data-bs-target={`#select${name}InfoModal`} data-bs-toggle="modal" onClick={checkSignInHandler}></button> :
                                                         <p className="text-danger fs-6 m-2">Service not available currently</p>
                                                     }
                                                     <FaAngleDown />

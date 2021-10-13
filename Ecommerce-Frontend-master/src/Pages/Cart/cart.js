@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useParams } from 'react-router-dom'
-import { NoItemInCart } from '../../Components/DataError'
-import { addToCart, removeAllFromCart, removeFromCart, removeSavedAddress, selectAddress } from '../../Redux/Actions/cartActions'
+import { AuthError, NoItemInCart } from '../../Components/DataError'
+import Loading from '../../Components/Loading'
+import { emptyCart, removeFromCart } from '../../Redux/Actions/cartActions'
+import { createOrder } from '../../Redux/Actions/orderActions'
+import { getUser, removeSavedAddress } from '../../Redux/Actions/userActions'
+import { ORDER_CREATE_RESET } from '../../Redux/Constants/orderConstants'
 const CartItemCard = (props) => {
     const dispatch = useDispatch();
-    const { id, subgroup, name, details, timeSlot, comment, price } = props
+    const { _id, subgroup, name, details, timeSlot, comment, price } = props
     const removeFromCartHandler = (id) => {
         dispatch(removeFromCart(id))
     }
@@ -28,7 +32,7 @@ const CartItemCard = (props) => {
                         <p>{comment === "undefined" ? "No extra information added" : comment}</p>
                         <div className="d-flex align-items-center w-full justify-content-between">
                             <strong className="border-end px-3 fs-2">₹{price}</strong>
-                            <button className="btn btn-outline-danger m-2" onClick={() => removeFromCartHandler(id)}>Remove</button>
+                            <button className="btn btn-outline-danger m-2" onClick={() => removeFromCartHandler(_id)}>Remove</button>
                         </div>
                     </div>
 
@@ -40,13 +44,11 @@ const CartItemCard = (props) => {
 
 
 const Cart = () => {
-
-
+    const [selectedAddress, setSelectedAddress] = useState()
     const SavedAddress = (props) => {
-        const { id, fullName, phone, address, address2, city, state } = props
+        const { _id, fullName, phone, address, address2, city, state } = props
         const selectAddressHandler = (e) => {
-            console.log(e.target.value)
-            // dispatch(selectAddress(e.target.value))
+            setSelectedAddress(savedAddress.find((x) => x._id == e.target.value))
         }
         const removeAddresshandler = (id) => {
             dispatch(removeSavedAddress(id))
@@ -54,8 +56,8 @@ const Cart = () => {
 
         return (
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="addressRadios" id={`radioAddress${id}`} value={`${id}`} onChange={(e) => selectAddressHandler(e)} />
-                <label class="form-check-label" for={`radioAddress${id}`}>
+                <input class="form-check-input" type="radio" name="addressRadios" id={`radioAddress${_id}`} value={`${_id}`} onChange={(e) => selectAddressHandler(e)} />
+                <label class="form-check-label" for={`radioAddress${_id}`}>
                     <div className="card m-1">
                         <div className="card-body">
                             <h4 className="text-capitalize">{fullName}</h4>
@@ -63,7 +65,7 @@ const Cart = () => {
                             <p className="mb-0">{address}</p>
                             <p className="mb-0">{address2}</p>
                             <p className="mb-0 text-capitalize">{city + ", " + state}</p>
-                            <span className="" role="button" onClick={() => removeAddresshandler(id)}>
+                            <span className="" role="button" onClick={() => removeAddresshandler(_id)}>
                                 <FaTrash className="text-danger" /><span className="text-danger"> Remove</span>
                             </span>
                         </div>
@@ -75,28 +77,45 @@ const Cart = () => {
     const dispatch = useDispatch();
     const history = useHistory()
     const userSignin = useSelector((state) => state.userSignin);
-    const { userInfo } = userSignin;
-    // if (!userInfo) {
-    //     history.push('/signin')
-    // }
-    // const serviceUserComment = window.location.search ? String(window.location.search.split('=')[1]) : "No extra comments added by user"
-    // const { group, subgroup, service, timeSlot, comment } = useParams()
-    // useEffect(() => {
-    //     if (service, timeSlot) {
-    //         dispatch(addToCart(group, subgroup, service, timeSlot, comment))
-    //     }
-    // }, [dispatch, group, subgroup, service, timeSlot, comment])
-    const cart = useSelector((state) => state.cart)
-    const { cartItems, savedAddress } = cart
-    console.log(cartItems)
+    const userDetails = useSelector((state) => state.userDetails)
+    // const cart = useSelector((state) => state.cart)
+    const orderCreate = useSelector((state) => state.orderCreate)
+    const { userInfo } = userSignin
+    const { currentUser } = userDetails;
+    // const { cartItems } = cart
+    const { loading, success, error, order } = orderCreate;
+    const [savedAddress, setSavedAddress] = useState()
+    const [cartItems, setCartItems] = useState([])
+
+    useEffect(() => {
+        if (!userInfo) {
+            history.push('/signin?redirect=/Cart')
+        }
+        if (currentUser) {
+            setSavedAddress(currentUser.savedAddress)
+            setCartItems(currentUser.cartItems)
+        }
+    }, [currentUser, userInfo])
+
+
     var subTotal = cartItems.reduce((a, c) => a + c.price, 0)
     var tax = subTotal / 10
-    var shipping = cartItems.length > 0 ? 50 : 0
+    // var shipping = cartItems.length > 0 ? 50 : 0
+    var shipping = 0
     var grandTotal = subTotal + tax + shipping
-    const removeAllFromCartHandler = () => {
-        dispatch(removeAllFromCart())
+    const emptyCartHandler = () => {
+        dispatch(emptyCart())
     }
 
+    const placeOrderHandler = () => {
+        dispatch(createOrder({ orderItems: cartItems, paymentMethod: "payTm", serviceAddress: selectedAddress, servicesPrice: subTotal, taxPrice: tax, totalPrice: grandTotal }))
+    }
+    useEffect(() => {
+        if (success) {
+            history.push(`/order/${order._id}`);
+            dispatch({ type: ORDER_CREATE_RESET });
+        }
+    }, [dispatch, order, history, success]);
     return (
         <div style={{
             background: "-webkit-linear-gradient(to right, #eecda3, #ef629f)",
@@ -113,7 +132,7 @@ const Cart = () => {
                                 {cartItems.length > 0 ?
                                     <div className="d-flex justify-content-between align-items center m-2">
                                         <p> You have {cartItems.length} item in your cart</p>
-                                        <button className="btn btn-danger" onClick={() => removeAllFromCartHandler()}>Remove All</button>
+                                        <button className="btn btn-danger" onClick={() => emptyCartHandler()}>Remove All</button>
                                     </div>
                                     : <NoItemInCart />}
                                 {/* <!-- Shopping cart table --> */}
@@ -132,13 +151,14 @@ const Cart = () => {
                                 <div class="col-lg-6">
                                     <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Address</div>
                                     <div class="p-4">
-                                        <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
                                         {
-                                            savedAddress.map((data, index) => {
-                                                return (
-                                                    <SavedAddress {...data} key={index} />
-                                                )
-                                            })
+                                            savedAddress ?
+                                                savedAddress.map((data, index) => {
+                                                    return (
+                                                        <SavedAddress {...data} key={index} />
+                                                    )
+                                                }) :
+                                                <p class="font-italic mb-4">No Address saved.</p>
                                         }
                                         <Link type="button" class="btn btn-dark px-4 rounded-pill" to="/user/addAddress">Add Address</Link>
                                     </div>
@@ -169,7 +189,9 @@ const Cart = () => {
                                             <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
                                                 <h5 class="font-weight-bold">₹{grandTotal}</h5>
                                             </li>
-                                        </ul><Link to="signIn?redirect=checkout/address" class="btn btn-dark rounded-pill py-2 btn-block" disabled={cartItems.length === 0}>Procceed to checkout</Link>
+                                        </ul><button class="btn btn-dark rounded-pill py-2 btn-block" onClick={placeOrderHandler}>Procceed to checkout</button>
+                                        {loading && <Loading />}
+                                        {error && <AuthError>{error}</AuthError>}
                                     </div>
                                 </div>
                             </div>

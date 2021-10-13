@@ -1,4 +1,5 @@
-import { USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_SIGNUP_FAIL, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS } from "../Constants/userConstants";
+import { ADD_CART_ITEM_FAIL, ADD_CART_ITEM_REQUEST, ADD_CART_ITEM_SUCCESS, EMPTY_CART_FAIL, EMPTY_CART_REQUEST, EMPTY_CART_SUCCESS, REMOVE_CART_ITEM_FAIL, REMOVE_CART_ITEM_REQUEST, REMOVE_CART_ITEM_SUCCESS } from "../Constants/cartConstants";
+import { GET_USER, REMOVE_SAVED_ADDRESS_FAIL, REMOVE_SAVED_ADDRESS_REQUEST, REMOVE_SAVED_ADDRESS_SUCCESS, USER_SAVE_ADDRESS_FAIL, USER_SAVE_ADDRESS_REQUEST, USER_SAVE_ADDRESS_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_SIGNUP_FAIL, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS } from "../Constants/userConstants";
 
 export const userSigninReducer = (state = {}, action) => {
     switch (action.type) {
@@ -10,10 +11,13 @@ export const userSigninReducer = (state = {}, action) => {
             return { loading: false, error: action.payload }
         case USER_SIGNOUT:
             return {}
+
         default:
             return state;
     }
 }
+
+
 export const userSignupReducer = (state = {}, action) => {
     switch (action.type) {
         case USER_SIGNUP_REQUEST:
@@ -28,3 +32,45 @@ export const userSignupReducer = (state = {}, action) => {
             return state;
     }
 }
+
+
+
+export const userDetailsReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_SAVE_ADDRESS_REQUEST:
+            return { ...state, loading: true };
+        case USER_SAVE_ADDRESS_SUCCESS:
+            return { loading: false, currentUser: action.payload, success: true };
+        case USER_SAVE_ADDRESS_FAIL:
+            return { ...state, loading: false, error: action.payload, success: false };
+        case REMOVE_SAVED_ADDRESS_REQUEST:
+            return { ...state, loading: true, success: false, idToBeDeleted: action.payload }
+        case REMOVE_SAVED_ADDRESS_SUCCESS:
+            return { loading: false, currentUser: action.payload, success: true }
+        case REMOVE_SAVED_ADDRESS_FAIL:
+            return { ...state, loading: false, success: false, error: action.payload }
+        case ADD_CART_ITEM_REQUEST:
+            return { ...state, loading: true, requestedData: action.payload, success: false };
+        case ADD_CART_ITEM_SUCCESS:
+            return { loading: false, currentUser: action.payload, success: true };
+        case ADD_CART_ITEM_FAIL:
+            return { ...state, loading: false, error: action.payload, success: false };
+        case REMOVE_CART_ITEM_REQUEST:
+            return { ...state, loading: true, success: false, idToBeDeleted: action.payload }
+        case REMOVE_CART_ITEM_SUCCESS:
+            return { loading: false, currentUser: action.payload, success: true }
+        case REMOVE_CART_ITEM_FAIL:
+            return { ...state, loading: false, success: false, error: action.payload }
+        case EMPTY_CART_REQUEST:
+            return { ...state, loading: true, success: false }
+        case EMPTY_CART_SUCCESS:
+            return { loading: false, currentUser: action.payload, success: true }
+        case EMPTY_CART_FAIL:
+            return { ...state, loading: false, success: false, error: action.payload }
+        case GET_USER:
+            return { loading: false, currentUser: action.payload }
+        default:
+            return state;
+    }
+}
+

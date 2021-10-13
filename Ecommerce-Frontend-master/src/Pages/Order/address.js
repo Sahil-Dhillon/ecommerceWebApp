@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaMapPin } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { saveAddress } from '../../Redux/Actions/cartActions';
+import { getUser, saveAddress } from '../../Redux/Actions/userActions';
 
 const Address = () => {
     const history = useHistory()
@@ -26,6 +26,7 @@ const Address = () => {
         dispatch(
             saveAddress({ fullName, phone, address, address2, city, state })
         );
+        // dispatch(getUser())
         history.push('/cart');
     };
     return (

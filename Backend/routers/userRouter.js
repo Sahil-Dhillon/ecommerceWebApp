@@ -3,7 +3,7 @@ import expressAsyncHandler from "express-async-handler";
 import { data } from "../mainServicesData.js";
 import User from "../models/userModel.js";
 import bcrypt from 'bcryptjs'
-import { generateToken } from "../utils.js";
+import { generateToken, isAuth } from "../utils.js";
 const UserRouter = express.Router()
 
 UserRouter.get('/seed', expressAsyncHandler(async (req, res) => {
@@ -45,9 +45,93 @@ UserRouter.post('/signup', expressAsyncHandler(async (req, res) => {
             name: createdUser.name,
             email: createdUser.email,
             isAdmin: createdUser.isAdmin,
+            savedAddress: user.savedAddress,
+            cart: user.cartItems,
             token: generateToken(createdUser)
         }
     )
 
+}))
+UserRouter.get('/currentUser', isAuth, expressAsyncHandler(async (req, res) => {
+    const user = await User.findOne({ _id: req.user._id })
+    if (user) {
+        res.send(user)
+    }
+    else {
+        res.status(401).send("Userr not found")
+    }
+}))
+UserRouter.post('/saveAddress', isAuth, expressAsyncHandler(async (req, res) => {
+    const user = await User.findOne({ _id: req.user._id })
+    // const user = await User.findOne({ email: req.body.email })
+    if (user) {
+        user.savedAddress.push({
+            fullName: req.body.fullName,
+            phone: req.body.phone,
+            address: req.body.address,
+            address2: req.body.address2,
+            city: req.body.city,
+            state: req.body.state,
+        })
+        await user.save()
+        // await address.save();
+        res.status(201).send(user);
+    }
+}))
+UserRouter.delete('/removeSavedAddress/:id', isAuth, expressAsyncHandler(async (req, res) => {
+    const user = await User.findOne({ _id: req.user._id })
+    // const user = await User.findOne({ email: req.body.email })
+    const removedItem = req.params.id
+    if (user) {
+        user.savedAddress = await user.savedAddress.filter((x) => x._id != removedItem);
+        await user.save()
+        res.status(201).send(user);
+    } else {
+        res.status(401).send("User not found")
+    }
+}))
+UserRouter.post('/addToCart', isAuth, expressAsyncHandler(async (req, res) => {
+    const user = await User.findOne({ _id: req.user._id })
+    // const user = await User.findOne({ email: req.body.email })
+    if (user) {
+        user.cartItems.push({
+            name: req.body.name,
+            group: req.body.group,
+            subgroup: req.body.subgroup,
+            timeSlot: req.body.timeSlot,
+            comment: req.body.comment,
+            price: req.body.price,
+            image: req.body.img,
+            serviceId: req.body.serviceId,
+        })
+        await user.save()
+        // await address.save();
+        res.status(201).send(user);
+    } else {
+        res.status(401).send("User not found")
+    }
+}))
+UserRouter.delete('/removeFromCart/:id', isAuth, expressAsyncHandler(async (req, res) => {
+    const user = await User.findOne({ _id: req.user._id })
+    // const user = await User.findOne({ email: req.body.email })
+    const removedItem = req.params.id
+    if (user) {
+        user.cartItems = await user.cartItems.filter((x) => x._id != removedItem);
+        await user.save()
+        res.status(201).send(user);
+    } else {
+        res.status(401).send("User not found")
+    }
+}))
+UserRouter.delete('/emptyCart', isAuth, expressAsyncHandler(async (req, res) => {
+    const user = await User.findOne({ _id: req.user._id })
+    // const user = await User.findOne({ email: req.body.email })
+    if (user) {
+        user.cartItems = []
+        await user.save()
+        res.status(201).send(user);
+    } else {
+        res.status(401).send("User not found")
+    }
 }))
 export default UserRouter

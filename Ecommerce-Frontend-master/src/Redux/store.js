@@ -1,28 +1,23 @@
+import { useSelector } from 'react-redux';
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { cartReducer } from './Reducers/cartReducers';
+// import { cartReducer } from './Reducers/cartReducers';
+import { orderCreateReducer } from './Reducers/orderReducers';
 import { servicesDetailsReducer, servicesListReducer } from './Reducers/serviceReducers';
-import { userSigninReducer, userSignupReducer } from './Reducers/userReducers';
-
+import { userDetailsReducer, userSigninReducer, userSignupReducer } from './Reducers/userReducers';
 const initialState = {
-  cart: {
-    cartItems: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [],
-    savedAddress: localStorage.getItem('savedAddress') ? JSON.parse(localStorage.getItem('savedAddress'))
-      : [],
-    // cartItems: [],
-    selectedAddress: {},
-    paymentMethod: 'PayPal',
-  },
   userSignin: {
-    userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null
-  }
+    userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null,
+  },
 };
 const reducer = combineReducers({
   serviceList: servicesListReducer,
   serviceDetails: servicesDetailsReducer,
-  cart: cartReducer,
+  // cart: cartReducer,
   userSignin: userSigninReducer,
-  userSignup: userSignupReducer
+  userSignup: userSignupReducer,
+  userDetails: userDetailsReducer,
+  orderCreate: orderCreateReducer
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

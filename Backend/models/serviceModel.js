@@ -4,6 +4,7 @@ const servicesServiceSchema = new mongoose.Schema(
         // _id: { type: Number, required: true, unique: true },
         name: { type: String, required: true, unique: true },
         price: { type: Number, required: true },
+        image: { type: Number, required: false },
         details: { type: String },
         availability: { type: Boolean, required: true },
     },
