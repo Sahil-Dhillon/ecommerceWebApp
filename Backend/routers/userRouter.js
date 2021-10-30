@@ -45,8 +45,8 @@ UserRouter.post('/signup', expressAsyncHandler(async (req, res) => {
             name: createdUser.name,
             email: createdUser.email,
             isAdmin: createdUser.isAdmin,
-            savedAddress: user.savedAddress,
-            cart: user.cartItems,
+            savedAddress: createdUser.savedAddress,
+            cart: createdUser.cartItems,
             token: generateToken(createdUser)
         }
     )
@@ -61,7 +61,7 @@ UserRouter.get('/currentUser', isAuth, expressAsyncHandler(async (req, res) => {
         res.status(401).send("Userr not found")
     }
 }))
-UserRouter.post('/saveAddress', isAuth, expressAsyncHandler(async (req, res) => {
+UserRouter.put('/saveAddress', isAuth, expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ _id: req.user._id })
     // const user = await User.findOne({ email: req.body.email })
     if (user) {
@@ -90,7 +90,7 @@ UserRouter.delete('/removeSavedAddress/:id', isAuth, expressAsyncHandler(async (
         res.status(401).send("User not found")
     }
 }))
-UserRouter.post('/addToCart', isAuth, expressAsyncHandler(async (req, res) => {
+UserRouter.put('/addToCart', isAuth, expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ _id: req.user._id })
     // const user = await User.findOne({ email: req.body.email })
     if (user) {

@@ -59,7 +59,7 @@ export const saveAddress = (address) => async (dispatch, getState) => {
         const {
             userSignin: { userInfo },
         } = getState();
-        const { data } = await Axios.post('/api/users/saveAddress', address, {
+        const { data } = await Axios.put('/api/users/saveAddress', address, {
             headers: {
                 Authorization: `Bearer ${userInfo.token}`,
             },

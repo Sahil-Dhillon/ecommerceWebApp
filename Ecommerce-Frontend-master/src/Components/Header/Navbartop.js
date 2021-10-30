@@ -92,7 +92,7 @@ const Navbar = () => {
                                             </span>
                                             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
                                                 <li><a class="dropdown-item" href="/">Profile</a></li>
-                                                <li><a class="dropdown-item" href="/">Another action</a></li>
+                                                <li><Link class="dropdown-item" to="/user/orderHistory">My Orders</Link></li>
                                                 <li>
                                                     <hr class="dropdown-divider" />
                                                 </li>

@@ -25,10 +25,10 @@ const ServiceCard = ({ link, title, imgLink, details, options }) => {
                         })
                     }
                 </ul>
-                <button type="button" class="btn btn-primary py-1 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-primary py-1 " data-bs-toggle="modal" data-bs-target="#serviceModal">
                     Next
                 </button>
-                <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="serviceModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content rounded-6 shadow">
                             <div class="modal-body p-5">

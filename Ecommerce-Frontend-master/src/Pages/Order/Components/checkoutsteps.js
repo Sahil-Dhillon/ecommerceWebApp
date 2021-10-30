@@ -42,19 +42,19 @@ const CheckoutSteps = (props) => {
         }
     }, [props])
     return (
-        <div className="row justify-content-center m-4">
+        <div className="row justify-content-center m-4 ">
             <div className="position-relative col-10 col-md-8 my-4 ">
                 <div class="progress position-absolute top-50 start-50 translate-middle w-100 " style={{ height: "8px" }}>
                     <div class="progress-bar " style={{ width: progressBarWidth }} role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div className={`progress-checkpoints position-absolute top-0 translate-middle p-2 border border-2 border-light rounded-circle ${checkpoint1BgClass}`} style={{ left: "25%" }}></div>
-                <span className="text-primary position-absolute translate-middle-x p-2" style={{ left: "25%" }}>SignIn</span>
+                <span className="text-primary position-absolute translate-middle-x p-2" style={{ left: "25%" }}>Cart</span>
                 <div className={`progress-checkpoints position-absolute top-0 start-50 translate-middle p-2 border border-2 border-light rounded-circle ${checkpoint2BgClass}`}></div>
-                <span className="text-primary position-absolute start-50 translate-middle-x p-2" style={{ left: "25%" }}>Address</span>
+                <span className="text-primary position-absolute start-50 translate-middle-x p-2" style={{ left: "25%" }}>Confirm Order</span>
                 <div className={`progress-checkpoints position-absolute top-0 translate-middle p-2 border border-2 border-light rounded-circle ${checkpoint3BgClass}`} style={{ left: "75%" }}></div>
                 <span className="text-primary position-absolute translate-middle-x p-2" style={{ left: "75%" }}>Checkout</span>
                 <div className={`progress-checkpoints position-absolute top-0 start-100 translate-middle p-2 border border-2 border-light rounded-circle ${checkpoint4BgClass}`}></div>
-                <span className="text-primary position-absolute start-100 translate-middle-x p-2 lh-1" style={{ left: "25%" }}>Order Placed</span>
+                <span className="text-primary position-absolute start-100 translate-middle-x p-2 lh-1 text-nowrap" style={{ left: "25%" }}>Order Placed</span>
             </div>
         </div>
     )

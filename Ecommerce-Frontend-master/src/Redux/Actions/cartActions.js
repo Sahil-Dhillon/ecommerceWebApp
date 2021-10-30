@@ -1,5 +1,5 @@
 import Axios from "axios"
-import { ADD_CART_ITEM_FAIL, ADD_CART_ITEM_REQUEST, ADD_CART_ITEM_SUCCESS, CART_SAVE_PAYMENT_METHOD, CART_SELECT_ADDRESS, EMPTY_CART_FAIL, EMPTY_CART_REQUEST, EMPTY_CART_SUCCESS, REMOVE_CART_ITEM_FAIL, REMOVE_CART_ITEM_REQUEST, REMOVE_CART_ITEM_SUCCESS, REMOVE_SAVED_ADDRESS } from "../Constants/cartConstants"
+import { ADD_CART_ITEM_FAIL, ADD_CART_ITEM_REQUEST, ADD_CART_ITEM_SUCCESS, EMPTY_CART_FAIL, EMPTY_CART_REQUEST, EMPTY_CART_SUCCESS, REMOVE_CART_ITEM_FAIL, REMOVE_CART_ITEM_REQUEST, REMOVE_CART_ITEM_SUCCESS } from "../Constants/cartConstants"
 
 
 export const addToCart = (group, subgroup, service, timeSlot, comment) => async (dispatch, getState) => {
@@ -9,7 +9,7 @@ export const addToCart = (group, subgroup, service, timeSlot, comment) => async 
             userSignin: { userInfo },
         } = getState();
         const serviceData = await Axios.get(`/api/services/${group}/${subgroup}/${service}`)
-        const { data } = await Axios.post('/api/users/addToCart', {
+        const { data } = await Axios.put('/api/users/addToCart', {
             serviceId: serviceData.data._id,
             group,
             subgroup,
@@ -98,15 +98,3 @@ export const emptyCart = () => async (dispatch, getState) => {
         });
     }
 }
-
-
-
-export const selectAddress = (id) => (dispatch) => {
-    dispatch({
-        type: CART_SELECT_ADDRESS,
-        payload: id
-    })
-}
-export const savePaymentMethod = (data) => (dispatch) => {
-    dispatch({ type: CART_SAVE_PAYMENT_METHOD, payload: data });
-};
