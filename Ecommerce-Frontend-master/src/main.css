@@ -293,6 +293,25 @@ a {
     background-color: var(--black75);
 }
 
+.fab-service-add {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* top: -100%; */
+    width: 36px;
+    height: 36px;
+    background-color: #aaa;
+    border-radius: 50%;
+}
+
+.fab-service-add:hover {
+    background-color: #4CAF50;
+}
+
+.fab-service-add:hover .fab-add-icon {
+    fill: #fff;
+}
+
 
 /* keyframes */
 

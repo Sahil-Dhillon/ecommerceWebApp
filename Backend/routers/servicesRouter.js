@@ -2,11 +2,23 @@ import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import { data } from "../mainServicesData.js";
 import Service from "../models/serviceModel.js";
+import { isAdmin, isAuth } from "../utils.js";
 
 const ServiceRouter = express.Router()
 ServiceRouter.get('/', expressAsyncHandler(async (req, res) => {
     const services = await Service.find({})
     res.send(services)
+}))
+
+ServiceRouter.post('/newGroup', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const serviceGroup = new Service({
+        title: "Sample Title",
+        imgLink: "https://source.unsplash.com/random/200x100",
+        details: ["Sample Service 1", "Sample Service 2"],
+        options: []
+    })
+    const createdServiceGroup = await serviceGroup.save();
+    res.send({ message: "Service Group Added", serviceGroup: createdServiceGroup })
 }))
 
 

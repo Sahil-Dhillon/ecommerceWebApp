@@ -1,4 +1,4 @@
-import { SERVICES_DETAILS_FAIL, SERVICES_DETAILS_REQUEST, SERVICES_DETAILS_SUCCESS, SERVICES_LIST_FAIL, SERVICES_LIST_REQUEST, SERVICES_LIST_SUCCESS } from "../Constants/servicesConstants";
+import { SERVICES_DETAILS_FAIL, SERVICES_DETAILS_REQUEST, SERVICES_DETAILS_SUCCESS, SERVICES_GROUP_CREATE_FAIL, SERVICES_GROUP_CREATE_REQUEST, SERVICES_GROUP_CREATE_RESET, SERVICES_GROUP_CREATE_SUCCESS, SERVICES_LIST_FAIL, SERVICES_LIST_REQUEST, SERVICES_LIST_SUCCESS } from "../Constants/servicesConstants";
 
 export const servicesListReducer = (state = { loading: true, services: [] }, action) => {
     switch (action.type) {
@@ -25,3 +25,18 @@ export const servicesDetailsReducer = (state = { loading: true, service: [] }, a
             return state;
     }
 }
+
+export const servicesGroupCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case SERVICES_GROUP_CREATE_REQUEST:
+            return { loading: true };
+        case SERVICES_GROUP_CREATE_SUCCESS:
+            return { loading: false, success: true, serviceGroup: action.payload };
+        case SERVICES_GROUP_CREATE_FAIL:
+            return { loading: false, error: action.payload };
+        case SERVICES_GROUP_CREATE_RESET:
+            return {};
+        default:
+            return state;
+    }
+};

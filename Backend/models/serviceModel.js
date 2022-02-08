@@ -30,7 +30,7 @@ const servicesGroupSchema = new mongoose.Schema(
         title: { type: String, required: true },
         imgLink: { type: String, required: true },
         details: { type: Array, required: true },
-        options: { type: [servicesSubGroupSchema], required: true }
+        options: { type: [servicesSubGroupSchema], required: false }
     },
     {
         timestamps: true

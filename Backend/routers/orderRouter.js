@@ -66,7 +66,7 @@ orderRouter.post(
                 "mid": process.env.PAYTM_MERCHANT_ID,
                 "websiteName": "WEBSTAGING",
                 "orderId": req.params.id,
-                "callbackUrl": "localhost:3000/orderStatus",
+                "callbackUrl": "http://localhost:3000/orderStatus",
                 // "callbackUrl": "https://zsahildhillon.web.app/api/callback",
                 "txnAmount": {
                     "value": order.totalPrice,
@@ -172,12 +172,14 @@ orderRouter.put(
                 txnId: req.body.TXNID
             };
             const updatedOrder = await order.save();
-            res.send({ message: 'Order Paid', data: updatedOrder });
+            console.log(updatedOrder)
+            res.send(updatedOrder);
         } else {
             res.status(404).send({ message: 'Order Not Found' });
         }
     })
 );
+
 orderRouter.get(
     '/generateCheckSumHash/:id',
     isAuth,
@@ -200,7 +202,7 @@ orderRouter.get(
 
 
 orderRouter.get(
-    '/history',
+    '/user/history',
     isAuth,
     expressAsyncHandler(async (req, res) => {
         const orders = await Order.find({ user: req.user._id });

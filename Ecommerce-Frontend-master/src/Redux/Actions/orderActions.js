@@ -71,7 +71,7 @@ export const fetchOrderHistory = () => async (dispatch, getState) => {
         const {
             userSignin: { userInfo },
         } = getState();
-        const { data } = await axios.get('/api/orders/history', {
+        const { data } = await axios.get('/api/orders/user/history', {
             headers: {
                 Authorization: `Bearer ${userInfo.token}`,
             },
@@ -94,6 +94,7 @@ export const initiateTransaction = (orderId) => async (dispatch, getState) => {
     const {
         userSignin: { userInfo },
     } = getState();
+    console.log(userInfo.token)
     try {
         const { data } = await axios.post(`/api/orders/initiateTransaction/${orderId}`, {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -128,4 +129,4 @@ export const payOrder = (order, paymentResult) => async (
                 : error.message;
         dispatch({ type: ORDER_PAY_FAIL, payload: message });
     }
-};
+}

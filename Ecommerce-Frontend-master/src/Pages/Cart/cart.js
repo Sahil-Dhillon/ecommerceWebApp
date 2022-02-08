@@ -7,7 +7,7 @@ import Loading from '../../Components/Loading'
 import { emptyCart, removeFromCart } from '../../Redux/Actions/cartActions'
 import { createOrder } from '../../Redux/Actions/orderActions'
 import { getUser, removeSavedAddress } from '../../Redux/Actions/userActions'
-import { ORDER_CREATE_RESET } from '../../Redux/Constants/orderConstants'
+import { ORDER_CREATE_RESET, ORDER_DETAILS_RESET } from '../../Redux/Constants/orderConstants'
 
 const CheckoutItemCard = (props) => {
     const { _id, subgroup, name, details, timeSlot, comment, price } = props
@@ -58,6 +58,7 @@ const CartItemCard = (props) => {
 const Cart = () => {
     const [serviceAddress, setServiceAddress] = useState()
     const [addressChecked, setAddressChecked] = useState()
+
     const SavedAddress = (props) => {
         const { _id, fullName, phone, address, address2, city, state } = props
         const selectAddressHandler = (e, i) => {
@@ -94,11 +95,14 @@ const Cart = () => {
     const userSignin = useSelector((state) => state.userSignin);
     const userDetails = useSelector((state) => state.userDetails)
     const orderCreate = useSelector((state) => state.orderCreate)
+    const orderDetails = useSelector((state) => state.orderDetails)
     const { userInfo } = userSignin
     const { currentUser } = userDetails;
     const { loading: orderCreateLoading, success: orderCreateSuccess, error: orderCreateError, order } = orderCreate;
     const [savedAddress, setSavedAddress] = useState()
     const [cartItems, setCartItems] = useState([])
+
+    orderDetails.order && dispatch({ type: ORDER_DETAILS_RESET })
 
     useEffect(() => {
         if (!userInfo) {
@@ -127,7 +131,8 @@ const Cart = () => {
     useEffect(() => {
         if (orderCreateSuccess) {
             history.push(`/order/${order._id}`);
-            // dispatch({ type: ORDER_CREATE_RESET });
+            dispatch({ type: ORDER_CREATE_RESET });
+
         }
     }, [dispatch, order, history, orderCreateSuccess]);
     return (

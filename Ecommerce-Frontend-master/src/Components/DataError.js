@@ -42,4 +42,12 @@ export const FormValidateError = (props) => {
         </span>
     )
 }
+export const MessageBox = (props) => {
+
+    return (
+        <span className="text-primary" style={{ fontSize: "0.8em" }}>
+            {props.children}
+        </span>
+    )
+}
 export default DataError

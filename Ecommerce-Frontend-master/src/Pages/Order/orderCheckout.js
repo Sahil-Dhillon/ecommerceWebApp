@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router';
 import { AuthError } from '../../Components/DataError';
 import Loading from '../../Components/Loading';
 import { getOrderDetails, initiateTransaction, payOrder } from '../../Redux/Actions/orderActions';
+import { INITIATE_TRANSACTION_RESET, ORDER_PAY_RESET } from '../../Redux/Constants/orderConstants';
 
 const CheckoutItemCard = (props) => {
     const { _id, subgroup, name, details, timeSlot, comment, price } = props
@@ -60,8 +61,12 @@ const OrderCheckOut = () => {
 
     useEffect(() => {
         if (order) {
-            if (order.isPaid) {
-                history.push('/orderStatus')
+            if (successPay) {
+                // document.querySelector("#app-close-btn") && document.querySelector("#app-close-btn").click(
+                dispatch({ type: INITIATE_TRANSACTION_RESET })
+                dispatch({ type: ORDER_PAY_RESET })
+                history.push(`/orderStatus/${orderId}`)
+                window.location.reload(true)
             }
             setOrderData(order)
             setOrderItems(order.orderItems)
@@ -92,7 +97,7 @@ const OrderCheckOut = () => {
                     "amount": amount
                 },
                 "merchant": {
-                    "redirect": true
+                    "redirect": false
                 },
                 "payMode": {
                     "order": ['UPI', 'CARD', 'NB', 'BALANCE']

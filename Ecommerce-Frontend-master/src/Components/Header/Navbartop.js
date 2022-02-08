@@ -87,22 +87,38 @@ const Navbar = () => {
                                 {
                                     userInfo ? (
                                         <li class="nav-item dropdown">
-                                            <span class="nav-link dropdown-toggle" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="nav-link dropdown-toggle" id="offcanvasNavbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 {userInfo.name}
                                             </span>
-                                            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                                                <li><a class="dropdown-item" href="/">Profile</a></li>
+                                            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarUserDropdown">
+                                                <li><Link class="dropdown-item" to="/user/profile">Profile</Link></li>
                                                 <li><Link class="dropdown-item" to="/user/orderHistory">My Orders</Link></li>
                                                 <li>
                                                     <hr class="dropdown-divider" />
                                                 </li>
                                                 <li><Link to="/" class="dropdown-item" onClick={signoutHandler}>Sign Out</Link></li>
+                                                <li><Link to="/" class="dropdown-item">Home</Link></li>
                                             </ul>
                                         </li>
                                     ) : (
                                         <li className="nav-item">
 
                                             <Link to="/signin" className={"nav-link btn-primary rounded-pill text-white p-2"}>Login | Sign Up</Link>
+                                        </li>
+                                    )
+                                }
+                                {
+                                    userInfo && userInfo.isAdmin && (
+                                        <li class="nav-item dropdown">
+                                            <span class="nav-link dropdown-toggle" id="offcanvasNavbarAdminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Admin
+                                            </span>
+                                            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarAdminDropdown">
+                                                <li><Link class="dropdown-item" to="/">Dashboard</Link></li>
+                                                <li><Link class="dropdown-item" to="/">Orders</Link></li>
+                                                <li><Link class="dropdown-item" to="/ServicesList">Services</Link></li>
+                                                <li><Link to="/" class="dropdown-item">Users</Link></li>
+                                            </ul>
                                         </li>
                                     )
                                 }

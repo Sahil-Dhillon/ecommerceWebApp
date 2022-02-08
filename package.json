@@ -2,10 +2,9 @@
     "name": "ecommercewebapp",
     "type": "module",
     "version": "1.0.0",
-    "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
+        "start": "nodemon --watch Backend --exec node --experimental-modules Backend/server.js"
     },
     "author": "",
     "license": "ISC",
@@ -21,5 +20,14 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.0.8",
         "paytmchecksum": "^1.5.0"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Sahil-Dhillon/ecommerceWebApp.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Sahil-Dhillon/ecommerceWebApp/issues"
+    },
+    "homepage": "https://github.com/Sahil-Dhillon/ecommerceWebApp#readme",
+    "description": ""
 }

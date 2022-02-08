@@ -1,5 +1,5 @@
 import { ADD_CART_ITEM_FAIL, ADD_CART_ITEM_REQUEST, ADD_CART_ITEM_SUCCESS, EMPTY_CART_FAIL, EMPTY_CART_REQUEST, EMPTY_CART_SUCCESS, REMOVE_CART_ITEM_FAIL, REMOVE_CART_ITEM_REQUEST, REMOVE_CART_ITEM_SUCCESS } from "../Constants/cartConstants";
-import { GET_USER, REMOVE_SAVED_ADDRESS_FAIL, REMOVE_SAVED_ADDRESS_REQUEST, REMOVE_SAVED_ADDRESS_SUCCESS, USER_SAVE_ADDRESS_FAIL, USER_SAVE_ADDRESS_REQUEST, USER_SAVE_ADDRESS_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_SIGNUP_FAIL, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS } from "../Constants/userConstants";
+import { GET_USER, REMOVE_SAVED_ADDRESS_FAIL, REMOVE_SAVED_ADDRESS_REQUEST, REMOVE_SAVED_ADDRESS_SUCCESS, USER_SAVE_ADDRESS_FAIL, USER_SAVE_ADDRESS_REQUEST, USER_SAVE_ADDRESS_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_SIGNUP_FAIL, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_RESET, USER_UPDATE_PROFILE_SUCCESS } from "../Constants/userConstants";
 
 export const userSigninReducer = (state = {}, action) => {
     switch (action.type) {
@@ -74,3 +74,17 @@ export const userDetailsReducer = (state = {}, action) => {
     }
 }
 
+export const userUpdateProfileReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_UPDATE_PROFILE_REQUEST:
+            return { loading: true };
+        case USER_UPDATE_PROFILE_SUCCESS:
+            return { loading: false, success: true };
+        case USER_UPDATE_PROFILE_FAIL:
+            return { loading: false, error: action.payload };
+        case USER_UPDATE_PROFILE_RESET:
+            return {};
+        default:
+            return state;
+    }
+};
