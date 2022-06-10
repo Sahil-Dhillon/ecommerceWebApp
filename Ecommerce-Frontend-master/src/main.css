@@ -300,12 +300,17 @@ a {
     /* top: -100%; */
     width: 36px;
     height: 36px;
-    background-color: #aaa;
+    background-color: #eee;
     border-radius: 50%;
 }
 
+.fab-add-icon {
+    fill: var(--primary-2);
+}
+
 .fab-service-add:hover {
-    background-color: #4CAF50;
+    background-color: var(--primary-2);
+    cursor: pointer;
 }
 
 .fab-service-add:hover .fab-add-icon {

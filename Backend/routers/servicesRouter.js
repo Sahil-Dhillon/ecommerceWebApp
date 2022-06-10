@@ -10,7 +10,7 @@ ServiceRouter.get('/', expressAsyncHandler(async (req, res) => {
     res.send(services)
 }))
 
-ServiceRouter.post('/newGroup', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+ServiceRouter.post('/add/group', expressAsyncHandler(async (req, res) => {
     const serviceGroup = new Service({
         title: "Sample Title",
         imgLink: "https://source.unsplash.com/random/200x100",
@@ -21,6 +21,25 @@ ServiceRouter.post('/newGroup', isAuth, isAdmin, expressAsyncHandler(async (req,
     res.send({ message: "Service Group Added", serviceGroup: createdServiceGroup })
 }))
 
+ServiceRouter.put('/add/service/:group/:subgroup', expressAsyncHandler(async (req, res) => {
+
+    const data = await Service.findOne({ title: req.params.group })
+    // const groupFilter = await data.find((x) => x.title === req.params.group);
+    const subGroupFilter = await data.options.find((x) => x.item === req.params.subgroup);
+    const servicesFiltered = await subGroupFilter.services
+    servicesFiltered.push({
+        name: req.body.name,
+        price: req.body.price,
+        details: req.body.details,
+        availability: req.body.availability
+    })
+    await data.save()
+    if (servicesFiltered) {
+        res.send(servicesFiltered);
+    } else {
+        res.status(404).send({ message: 'Product Not Found' });
+    }
+}))
 
 ServiceRouter.get('/seed', expressAsyncHandler(async (req, res) => {
     await Service.remove()

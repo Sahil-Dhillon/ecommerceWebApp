@@ -1,4 +1,3 @@
-
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
@@ -140,6 +139,7 @@ orderRouter.put(
     '/:id/PaymentStatus',
     isAuth,
     expressAsyncHandler(async (req, res) => {
+        const date = new Date;
         const order = await Order.findById(req.params.id);
         const paytmChecksum = req.body.CHECKSUMHASH;
         delete req.body.CHECKSUMHASH;
@@ -153,7 +153,7 @@ orderRouter.put(
         if (order && isVerifySignature) {
             if (req.body.STATUS == "TXN_SUCCESS") {
                 order.isPaid = true;
-                order.paidAt = Date.now();
+                order.paidAt = date.toLocaleDateString() + " " + date.toLocaleTimeString();
             }
             order.paymentStatus = {
                 bankName: req.body.BANKNAME,

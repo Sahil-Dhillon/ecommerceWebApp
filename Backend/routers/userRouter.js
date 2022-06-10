@@ -58,7 +58,7 @@ UserRouter.get('/currentUser', isAuth, expressAsyncHandler(async (req, res) => {
         res.send(user)
     }
     else {
-        res.status(401).send("Userr not found")
+        res.status(401).send("User not found")
     }
 }))
 

@@ -27,7 +27,7 @@ const ItemCard = (props) => {
 }
 
 const OrderCard = (props) => {
-    const { orderItems, serviceAddress, servicesPrice, taxPrice, totalPrice, isPaid, isServed, createdAt } = props
+    const { orderItems, serviceAddress, servicesPrice, taxPrice, totalPrice, isPaid, isServed, createdAt, paidAt } = props
     return (
         <div className="card mb-2 p-2">
             <div className="row">
@@ -39,6 +39,7 @@ const OrderCard = (props) => {
                             )
                         })
                     }
+                    <strong>{paidAt}</strong>
                 </div>
                 <div className="col-md-3">
                     <div className="m-2">

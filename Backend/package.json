@@ -1,10 +1,10 @@
 {
-    "name": "ecommercewebapp",
+    "name": "geenieverse",
     "type": "module",
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon --watch Backend --exec node --experimental-modules Backend/server.js"
+        "start": "nodemon --exec node --experimental-modules server.js"
     },
     "author": "",
     "license": "ISC",
